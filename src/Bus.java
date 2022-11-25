@@ -1,30 +1,23 @@
-public class Bus {
+public class Bus extends BusAndTaxi{
     //필드 값
     //고유 테이터
-    int busNum; //버스번호
     int cost; //버스요금
-    int maxPassenger; //최대승객수
-
     //상태 데이터
     int presentPassenger; //현재승객수
-    int oil; //주유량
-    int presentSpeed; //현재 속도
-    boolean runOrGarage; // 운행, 차고지 false=운행(0), true=차고지(1)
-    //생성자 초기화 생략
 
-
+    //생성자 초기화
     public Bus(int bNum) {
         //busNUM 생성할때
-        this.busNum=bNum;
-        presentSpeed = 0;
-        maxPassenger = 30; //최대승객 30;
+        this.number=bNum;
+        this.speed = 0;
+        this.maxOn = 30; //최대승객 30;
         cost = 1000; //버스요금 2000;
-        oil = 100; //주유량 초기값0
-        runOrGarage = false; //운행 또는 차고지, false=운행(0), true=차고지(1)
+        this.oil = 100; //주유량 초기값0
+        this.runOrGarage = 0; //운행 또는 차고지, 운행중(1), 차고지(2), 일반(0)
     }
 
     int getPresentPassenger(int presentPassenger) { //현재 승객 n명 타면 남은 승객 반환
-        int peple = maxPassenger - presentPassenger;
+        int peple = this.maxOn - presentPassenger;
         int onCost = presentPassenger * 1000; //1당 요금 1000씩 부과
         System.out.println("현재 탑승승객 수 : "+presentPassenger);
         System.out.println("잔여 승객 수 : "+peple);
@@ -33,43 +26,45 @@ public class Bus {
     }
 
     int getOilUse(int useOil){ //기름 사용 량
-         oil -= useOil;
-        System.out.println("주유량 : "+oil);
-         if(oil < 10){ //10미만일시 얼랏
+         this.oil -= useOil;
+        System.out.println("주유량 : "+this.oil);
+         if(this.oil < 10){ //10미만일시 얼랏
              System.out.println("차고지로 향합니다");
              System.out.println("주유가 필요합니다");
          }
-         return oil;
+         return this.oil;
     }
 
     int getOilIn(int inOil){ //기름 주입량
         oil += inOil;
-        System.out.println("주유량 : "+oil);
+        System.out.println("주유량 : "+this.oil);
         return inOil;
     }
 
-    boolean isRunOrGarage(boolean state){ //차량 운행중(0) 또는 차고지행(1)
-        if(state == true || oil <10){
-            System.out.println("차고지행");
-        }else{
+    int getrunOrGarage(int state){ //운행중(1), 차고지(2), 일반(0)
+        if(state == 0 || this.oil <10){
+            System.out.println("일반");
+        }else if(state == 1){
             System.out.println("운행중");
+        } else if (state ==2) {
+            System.out.println("차고지");
         }
         return state;
     }
     int overPassenger(int presentPassenger){ //최대 승객 수
-        if(maxPassenger<presentPassenger){
+        if(this.maxOn<presentPassenger){
             System.out.println("최대 승객수 초과");
         }
         return presentPassenger;
     }
 
     int upSpeed(int upSpeed){ //속도 증가
-        presentSpeed += upSpeed;
-        return presentSpeed;
+        this.speed += upSpeed;
+        return this.speed;
     }
     int downSpeed(int downSpeed){ //속도 감소
-        presentSpeed -=downSpeed;
-        return presentSpeed;
+        this.speed -=downSpeed;
+        return this.speed;
     }
     
 
