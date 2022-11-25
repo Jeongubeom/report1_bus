@@ -17,5 +17,6 @@ public class Main {
         taxi.taxiOn(5);
         taxi.taxiOn(3,"구로디지털단지역", 12);
         taxi.getoil(-20);
+        taxi.pay(14000);
     }
 }
